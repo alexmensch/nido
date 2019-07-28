@@ -12,7 +12,7 @@
         {
             "accessory": "NidoThermostat",
             "name": "Nido",
-            "baseAPIUrl": "http://nido-api/api",
+            "baseAPIUrl": "http://localhost/api",
             "getCHCSUrl": "/get/state",
             "getTHCSUrl": "/get/mode",
             "setTHCSUrl": "/set/mode/",
