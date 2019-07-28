@@ -1,0 +1,14 @@
+####
+# This file contains instance-specific variables, and you should definitely
+# change them from their defaults!
+#
+# Rename this file to "private-config.py" and replace the secrets with your
+# own values.
+#
+####
+
+# Standard Flask config values
+SECRET_KEY = "your-secret-key"
+
+# Nido API secret key
+PUBLIC_API_SECRET = "your-secret"
