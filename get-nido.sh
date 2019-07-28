@@ -41,8 +41,8 @@ sudo apt-get -y install python-setuptools \
 curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/${dc} > ${dc}
 
 # Substitute placeholder UID and GID for actual values
-sed -i "s/UID/${uid}/g" ${dc}
-sed -i "s/GID/${gid}/g" ${dc}
+sed -i "s/USER/${uid}/g" ${dc}
+sed -i "s/GROUP/${gid}/g" ${dc}
 
 # Get latest version of Nido Dockerfile
 curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/Dockerfile > Dockerfile

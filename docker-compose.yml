@@ -25,7 +25,7 @@ services:
     build:
       context: .
       target: nido-mqtt
-    user: "UID:GID"
+    user: "USER:GROUP"
     restart: always
     ports:
       - "1883:1883"
@@ -34,9 +34,11 @@ services:
       - ./instance:/mosquitto/data
   homebridge:
     image: oznu/homebridge:arm32v6
-    user: "UID:GID"
     restart: always
     network_mode: host
+    environment:
+      - PUID=USER
+      - PGID=GROUP
     volumes:
       - ./homebridge:/homebridge
     environment:
