@@ -75,4 +75,4 @@ echo "Nido API secret: ${b}"
 mkdir log instance
 
 # Start Nido
-docker-compose up
+docker-compose up -d
