@@ -69,5 +69,8 @@ EOF
 echo "Flask secret: ${a}"
 echo "Nido API secret: ${b}"
 
+# Create local volume mountpoints
+mkdir log instance
+
 # Start Nido
 docker-compose up

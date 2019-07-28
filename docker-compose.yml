@@ -4,7 +4,6 @@ services:
     build:
       context: .
       target: nido-api
-    image: alexmensch/nido
     restart: always
     ports:
       - "80:80"
