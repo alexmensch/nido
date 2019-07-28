@@ -38,21 +38,36 @@ sudo apt-get -y install python-setuptools \
     && sudo pip install docker-compose~=1.23.0
 
 # Get latest version of Nido docker-compose.yml
-curl -L https://raw.githubusercontent.com/alexmensch/nido/master/${dc} > ${dc}
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/${dc} > ${dc}
 
 # Substitute placeholder UID and GID for actual values
-sed -i 's/UID/${uid}/g' ${dc}
-sed -i 's/GID/${gid}/g' ${dc}
+sed -i "s/UID/${uid}/g" ${dc}
+sed -i "s/GID/${gid}/g" ${dc}
 
 # Get latest version of Nido Dockerfile
-curl -L https://raw.githubusercontent.com/alexmensch/nido/master/Dockerfile > Dockerfile
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/Dockerfile > Dockerfile
 # Mosquitto configuration file
-curl -L https://raw.githubusercontent.com/alexmensch/nido/master/mosquitto.conf > mosquitto.conf
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/mosquitto.conf > mosquitto.conf
 
 # Pull Homebridge configuration files
 mkdir homebridge
-curl -L https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/config.json > homebridge/config.json
-curl -L https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/package.json > homebridge/package.json
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/config.json > homebridge/config.json
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/package.json > homebridge/package.json
+
+# Generate random strings for private-config.py
+a=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
+b=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
+
+cat <<EOF > private-config.py
+# Flask secret key
+SECRET_KEY = "${a}"
+
+# Nido API secret key
+PUBLIC_API_SECRET = "${b}"
+EOF
+
+echo "Flask secret: ${a}"
+echo "Nido API secret: ${b}"
 
 # Start Nido
 docker-compose up
