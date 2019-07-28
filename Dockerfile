@@ -1,6 +1,6 @@
 FROM alexmensch/nido AS nido-api
 
-COPY private-config.py /usr/local/var/nido.web-instance
+COPY private-config.py /usr/local/var/nido.web-instance/
 
 ENV NIDOD_RPC_PORT=49152
 

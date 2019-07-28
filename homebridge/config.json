@@ -23,7 +23,7 @@
             "setTDUUrl": "/set/temp/display_units/",
             "getCRHUrl": "/get/conditions",
 
-            "secret": "your-secret",
+            "secret": "NIDO_API_SECRET",
             "modemapping": {
                 "0": "Off",
                 "1": "Heat"

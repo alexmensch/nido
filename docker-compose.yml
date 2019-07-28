@@ -34,6 +34,7 @@ services:
       - ./instance:/mosquitto/data
   homebridge:
     image: oznu/homebridge:arm32v6
+    user: "UID:GID"
     restart: always
     network_mode: host
     volumes:

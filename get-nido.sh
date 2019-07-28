@@ -66,6 +66,8 @@ SECRET_KEY = "${a}"
 PUBLIC_API_SECRET = "${b}"
 EOF
 
+sed -i "s/NIDO_API_SECRET/${b}/g" homebridge/config.json
+
 echo "Flask secret: ${a}"
 echo "Nido API secret: ${b}"
 
