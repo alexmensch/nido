@@ -77,7 +77,7 @@ mkdir log instance
 
 # Pull systemd configuration files
 curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/docker-compose-nido.service > docker-compose-nido.service
-sed -i "s/WORKING_DIRECTORY/${wd}/g" docker-compose-nido.service
+sed -i "s@WORKING_DIRECTORY@${wd}@g" docker-compose-nido.service
 
 # Install new systemd service
 sudo cp docker-compose-nido.service /etc/systemd/system
