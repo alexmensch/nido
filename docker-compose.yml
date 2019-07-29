@@ -24,7 +24,7 @@ services:
     privileged: true
     volumes:
       - ./instance:/app/instance
-      - ./log:/app/log
+      - ./logs:/app/log
   mosquitto:
     build:
       context: .
@@ -34,7 +34,7 @@ services:
     ports:
       - "1883:1883"
     volumes:
-      - ./log:/mosquitto/log
+      - ./logs:/mosquitto/log
       - ./instance:/mosquitto/data
   homebridge:
     image: oznu/homebridge:arm32v6
