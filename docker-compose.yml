@@ -4,6 +4,8 @@ services:
     build:
       context: .
       target: nido-api
+    depends_on:
+      - nido-supervisor
     restart: always
     ports:
       - "80:80"
@@ -14,6 +16,8 @@ services:
     build:
       context: .
       target: nido-supervisor
+    depends_on:
+      - mosquitto
     restart: always
     environment:
       - NIDOD_MQTT_HOSTNAME=mosquitto
@@ -34,6 +38,8 @@ services:
       - ./instance:/mosquitto/data
   homebridge:
     image: oznu/homebridge:arm32v6
+    depends_on:
+      - nido-api
     restart: always
     network_mode: host
     environment:
