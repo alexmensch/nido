@@ -38,22 +38,20 @@ sudo apt-get -y install python-setuptools \
     && sudo easy_install pip \
     && sudo pip install docker-compose~=1.23.0
 
-# Get latest version of Nido docker-compose.yml
+# Create local volume mountpoints
+mkdir homebridge log instance
+# Get latest version of configuration files
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/Dockerfile > Dockerfile
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/mosquitto.conf > mosquitto.conf
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/config.json > homebridge/config.json
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/package.json > homebridge/package.json
 curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/${dc} > ${dc}
-
+curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/docker-compose-nido.service > docker-compose-nido.service
 # Substitute placeholder UID and GID for actual values
 sed -i "s/USER/${uid}/g" ${dc}
 sed -i "s/GROUP/${gid}/g" ${dc}
-
-# Get latest version of Nido Dockerfile
-curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/Dockerfile > Dockerfile
-# Mosquitto configuration file
-curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/mosquitto.conf > mosquitto.conf
-
-# Pull Homebridge configuration files
-mkdir homebridge
-curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/config.json > homebridge/config.json
-curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/homebridge/package.json > homebridge/package.json
+# Substitute working directory in systemd service with current directory
+sed -i "s@WORKING_DIRECTORY@${wd}@g" docker-compose-nido.service
 
 # Generate random strings for private-config.py
 a=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
@@ -71,13 +69,6 @@ sed -i "s/NIDO_API_SECRET/${b}/g" homebridge/config.json
 
 echo "Flask secret: ${a}"
 echo "Nido API secret: ${b}"
-
-# Create local volume mountpoints
-mkdir log instance
-
-# Pull systemd configuration files
-curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/docker-compose-nido.service > docker-compose-nido.service
-sed -i "s@WORKING_DIRECTORY@${wd}@g" docker-compose-nido.service
 
 # Install new systemd service
 sudo cp docker-compose-nido.service /etc/systemd/system
