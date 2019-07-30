@@ -80,29 +80,30 @@ __Parts list:__
 ### Python, NodeJS and MQTT
 
 __Code repositories:__
-<https://github.com/alexmensch/nido-python>
+
+[alexmensch/nido-python](https://github.com/alexmensch/nido-python)
 
 
-<https://github.com/alexmensch/nido-docker>
+[alexmensch/nido-docker](https://github.com/alexmensch/nido-docker)
 
 
-<https://github.com/alexmensch/nido-homebridge>
+[alexmensch/nido-homebridge](https://github.com/alexmensch/nido-homebridge)
 
 
-<https://github.com/alexmensch/nido>
+[alexmensch/nido](https://github.com/alexmensch/nido)
 
 
 ### Thermostat control loop
 
 
 ### Data logging
-The BME280 chip is very capable and capable of very high precision. It's an under-used piece of technology in this project, but you can make better use of it by capturing the data it generates. By default, when you run Nido, a local MQTT broker (Mosquitto) is also started. You can subscribe to this broker and receive the data that's logged from Nido every 60 seconds.
+The BME280 chip is an amazing piece of technology, and it's capable of very high precision. It's an under-appreciated piece of technology in this project, but you can make better use of it by capturing the data it generates. By default, when you run Nido, a local MQTT broker (Mosquitto) is also started. You can subscribe to this broker and receive the data that's logged from Nido every 60 seconds.
 
 MQTT Topic            | Description
 :---------------------|:-----------
 nido/set_temp         |The current set temperature of the thermostat.
 nido/controller       |The current state of the heater (0 = Off, 1 = Heating).
-nido/temp             |The current temperature in Celsius.
+nido/temp_c           |The current temperature in Celsius.
 nido/pressure_mb      |The current pressure in millibars.
 nido/relative_humidity|The current relative humidity.
 
@@ -114,6 +115,8 @@ thermostat temp_c=22.4 1564466359638010112
 thermostat pressure_mb=1010.1 1564466359638010112
 thermostat relative_humidity=61.4 1564466359638010112
 ``` 
+
+Point an MQTT listener to port 1883 on the Raspberry Pi host to receive these messages. You can also configure Nido to broadcast to any MQTT broker (hint: pick your favorite cloud service.)
 
 ## Collaborators wanted!
 ### Mechanics and CAD
