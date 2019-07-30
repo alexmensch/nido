@@ -1,5 +1,5 @@
 ## Quickstart
-On a fresh installation of Raspbian Stretch Lite in a new directory, run the following commands to install everything you need to run the Nido thermostat:
+On a fresh installation of Raspbian Stretch Lite, run the following commands to install everything you need to run the Nido thermostat:
 
 ```bash
 cd ~
