@@ -54,7 +54,7 @@ __Circuit diagram:__
 ![Circuit diagram](https://raw.githubusercontent.com/alexmensch/nido/master/doc/circuit.png)
 
 __How it works:__
-1. The control software drives the GPIO control pin high.
+1. To turn on the heat, the control software drives the GPIO control pin high.
 2. This high voltage state turns on an NPN transistor, which drives enough current to close the contacts on a small relay.
 3. The relay contacts are connected to the heater control wires (formerly connected to the mechanical thermostat), which replaces the reed switch in the mechanical thermostat.
 4. When the voltage falls low on the GPIO pin, the transistor is turned off, the relay contacts open, and the heat turns off again.
