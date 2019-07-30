@@ -43,7 +43,7 @@ So, what are you waiting for? Bring that gas heater and the comfort of your livi
 ### Shopping list
 1. **A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/), or any other Raspberry Pi.** It needs to be powered, connected to your home network, and you'll need access to the GPIO pins.
 2. **Bosch BME280 sensor module [from Adafruit](https://www.adafruit.com/product/2652).** The current version of the software depends on communicating with this specific module over [I²C](https://en.wikipedia.org/wiki/I²C).
-3. **Custom electronics.** You'll need to get your soldering iron out for this one. See details on this, below. (I'm working on a custom PCB (printed circuit board) so that this and the previous step can be skipped. Please see the [collaborators](#collaborators-wanted) section if you're interested in helping out.)
+3. **Custom electronics.** You'll need to get your soldering iron out for this one. See details on this, below. (I'm working on a custom PCB so that this and the previous step can be skipped. Please see the [collaborators](#collaborators-wanted) section if you're interested in helping out.)
 4. **A screwdriver.** You're going to need to detach the control wires from the mechanical thermostat that's currently on your wall.
 
 ### Custom electronics
