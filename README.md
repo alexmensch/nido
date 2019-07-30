@@ -47,7 +47,7 @@ So, what are you waiting for? Bring that gas heater and the comfort of your livi
 4. **A screwdriver.** You're going to need to detach the control wires from the mechanical thermostat that's currently on your wall.
 
 ### Custom electronics
-I've implemented a very simple circuit to control the heater. This circuit effectively replaces the magnet and reedswitch and allows a GPIO control pin on the Raspberry Pi to control the valve that turns on the heating.
+I've implemented a very simple circuit to control the heater. This circuit effectively replaces the magnet and reed switch and allows a GPIO control pin on the Raspberry Pi to control the valve that turns on the heating.
 
 __Circuit diagram:__
 
