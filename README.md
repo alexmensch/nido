@@ -13,7 +13,7 @@ Once Nido is up and running, you can add it as a new accessory in the Apple Home
 Of course, you'll need some hardware to make the software useful, so keep reading...
 
 ## Nido, an IoT thermostat for ancient technology
-### Bridging the mechanical era and the Internet
+### A bridge between the mechanical era and the Internet
 
 I live in an apartment with a [gas wall furnace](https://www.williamscomfortprod.com/product/monterey-plus-home-furnaces/) that's operated by [184-year-old technology](https://www.jondetech.se/technology/thermopile-history/). One of the highlighted features of these furnaces is that they **don't require wall power**, which is great from the standpoint of keeping you warm during a power outage, but if you want to control your furnace with a smart thermostat, you're out of luck. (Though that hasn't stopped [some people](https://medium.com/@chrisvale/controlling-an-ancient-millivolt-heater-with-a-nest-b9493bbc59da) from [trying](https://scottshapiro.com/hacking-nest-uk-san-francisco-heater/).) Commercial smart thermostats generally require power drawn directly from the heating/cooling system to power themselves and also (usually) lack the necessary circuitry to control a heater of this type.
 
@@ -42,26 +42,32 @@ So, what are you waiting for? Bring that gas heater and the comfort of your livi
 ## Getting started
 ### Shopping list
 1. **A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/), or any other Raspberry Pi.** It needs to be powered, connected to your home network, and you'll need access to the GPIO pins.
-2. **Bosch BME280 sensor module [from Adafruit](https://www.adafruit.com/product/2652).** The current version of the software depends on communicating with this specific module over [I2C](https://en.wikipedia.org/wiki/I²C).
+2. **Bosch BME280 sensor module [from Adafruit](https://www.adafruit.com/product/2652).** The current version of the software depends on communicating with this specific module over [I²C](https://en.wikipedia.org/wiki/I²C).
 3. **Custom electronics.** You'll need to get your soldering iron out for this one. See details on this, below, under [Custom electronics](#custom-electronics). I'm working on a custom PCB (printed circuit board) so that this and the previous step can be skipped. If you're interested in helping, please contact me at amars\[at\]alumni\[dot\]stanford\[dot\]edu.
-4. **A screwdriver.** You're going to need to detach the control wires from the mechanical thermostat that's on your wall now.
+4. **A screwdriver.** You're going to need to detach the control wires from the mechanical thermostat that's currently on your wall.
 
 ### Custom electronics
-I've implemented a very simple circuit to control the heater. This circuit effectively replaces the magnet and reedswitch and allows a GPIO control pin on the Raspberry Pi to control the gas heat valve.
+I've implemented a very simple circuit to control the heater. This circuit effectively replaces the magnet and reedswitch and allows a GPIO control pin on the Raspberry Pi to control the valve that turns on the heating.
 
 How it works:
 1. The control software drives the GPIO control pin high.
-2. This high voltage state turns on an NPN transistor, which causes a solid state relay to close.
-3. The solid state relay contacts are connected to the heater control wires (formerly connected to the mechanical thermostat), which allows control of the heater.
+2. This high voltage state turns on an NPN transistor, which drives enough current to close the contacts on a small relay.
+3. The relay contacts are connected to the heater control wires (formerly connected to the mechanical thermostat), which replaces the reed switch in the mechanical thermostat.
 4. When the voltage falls low on the GPIO pin, the transistor is turned off, the relay contacts open, and the heat turns off again.
 
 **Note:** It's important to use a "normally open" relay so that the whole system fails safe. In other words, the heat should be off by default if your Raspberry Pi loses power, not the other way around!
 
 Parts list:
-\[ Coming soon! \]
+
+- Relay: 1 x SPST (NO), Hamlin Electronics P/N HE3621A0510 [Jameco](https://www.jameco.com/z/HE3621A0510-Hamlin-Electronics-Electromechanical-SIL-Relay-SPST-NO-500mA-5-Volt-500-Ohm-Through-Hole_1860088.html)
+- Transistor: 1 x BC337 TO-92 NPN [Jameco](https://www.jameco.com/z/BC337-Major-Brands-Transistor-BC337-TO-92-NPN-800ma-45-Volt_254810.html)
+- Resistor: 1 x 1kΩ
+
+**Total cost:** Less than $2
 
 Circuit diagram:
-\[ Coming soon! \]
+
+![https://raw.githubusercontent.com/alexmensch/nido/master/doc/circuit.png]
 
 ## Hardware design
 ### A $5 computer and a some electronics
