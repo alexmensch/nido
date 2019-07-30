@@ -46,6 +46,8 @@ So, what are you waiting for? Bring that gas heater and the comfort of your livi
 3. **Custom electronics.** You'll need to get your soldering iron out for this one. See details on this, below. (I'm working on a custom PCB so that this and the previous step can be skipped. Please see the [collaborators](#collaborators-wanted) section if you're interested in helping out.)
 4. **A screwdriver.** You're going to need to detach the control wires from the mechanical thermostat that's currently on your wall.
 
+**Total cost:** Approximately $30, not including tools
+
 ### Custom electronics
 I've implemented a very simple circuit to control the heater. This circuit effectively replaces the magnet and reedswitch and allows a GPIO control pin on the Raspberry Pi to control the valve that turns on the heating.
 
@@ -116,7 +118,7 @@ thermostat pressure_mb=1010.1 1564466359638010112
 thermostat relative_humidity=61.4 1564466359638010112
 ``` 
 
-Point an MQTT listener to port 1883 on the Raspberry Pi host to receive these messages. You can also configure Nido to broadcast to any MQTT broker (hint: pick your favorite cloud service.)
+Point an MQTT subscriber to port 1883 on the Raspberry Pi host to receive these messages. You can also configure Nido to broadcast to any MQTT broker (hint: pick your favorite cloud service).
 
 ## Collaborators wanted!
 ### Mechanics and CAD
