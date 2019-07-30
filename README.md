@@ -39,6 +39,30 @@ It's clever and it works (including some natural advantages like some built-in m
 
 So, what are you waiting for? Bring that gas heater and the comfort of your living space into the 21st century.
 
+## Getting started
+### Shopping list
+1. **A [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/), or any other Raspberry Pi.** It needs to be powered, connected to your home network, and you'll need access to the GPIO pins.
+2. **Bosch BME280 sensor module [from Adafruit](https://www.adafruit.com/product/2652).** The current version of the software depends on communicating with this specific module over [I2C](https://en.wikipedia.org/wiki/I²C).
+3. **Custom electronics.** You'll need to get your soldering iron out for this one. See details on this, below, under [Custom electronics][#custom-electronics]. I'm working on a custom PCB (printed circuit board) so that this and the previous step can be skipped. If you're interested in helping, please contact me at amars\[at\]alumni\[dot\]stanford\[dot\]edu.
+4. **A screwdriver.** You're going to need to detach the control wires from the mechanical thermostat that's on your wall now.
+
+### Custom electronics
+I've implemented a very simple circuit to control the heater. This circuit effectively replaces the magnet and reedswitch and allows a GPIO control pin on the Raspberry Pi to control the gas heat valve.
+
+How it works:
+1. The control software drives the GPIO control pin high.
+2. This high voltage state turns on an NPN transistor, which causes a solid state relay to close.
+3. The solid state relay contacts are connected to the heater control wires (formerly connected to the mechanical thermostat), which allows control of the heater.
+4. When the voltage falls low on the GPIO pin, the transistor is turned off, the relay contacts open, and the heat turns off again.
+
+**Note:** It's important to use a "normally open" relay so that the whole system fails safe. In other words, the heat should be off by default if your Raspberry Pi loses power, not the other way around!
+
+Parts list:
+\[ Coming soon! \]
+
+Circuit diagram:
+\[ Coming soon! \]
+
 ## Hardware design
 ### A $5 computer and a some electronics
 
