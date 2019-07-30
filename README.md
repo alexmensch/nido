@@ -70,7 +70,7 @@ __Parts list:__
 **Total cost:** Less than $2
 
 ## Hardware design
-### A $5 computer and a some electronics
+### A $5 computer and some electronics
 
 
 ### Wait...no physical interface?
@@ -79,12 +79,41 @@ __Parts list:__
 ## Software design
 ### Python, NodeJS and MQTT
 
+__Code repositories:__
+<https://github.com/alexmensch/nido-python>
+
+
+<https://github.com/alexmensch/nido-docker>
+
+
+<https://github.com/alexmensch/nido-homebridge>
+
+
+<https://github.com/alexmensch/nido>
+
 
 ### Thermostat control loop
 
 
 ### Data logging
+The BME280 chip is very capable and capable of very high precision. It's an under-used piece of technology in this project, but you can make better use of it by capturing the data it generates. By default, when you run Nido, a local MQTT broker (Mosquitto) is also started. You can subscribe to this broker and receive the data that's logged from Nido every 60 seconds.
 
+MQTT Topic            | Description
+:---------------------|:-----------
+nido/set_temp         |The current set temperature of the thermostat.
+nido/controller       |The current state of the heater (0 = Off, 1 = Heating).
+nido/temp             |The current temperature in Celsius.
+nido/pressure_mb      |The current pressure in millibars.
+nido/relative_humidity|The current relative humidity.
+
+Messages are formatted in InfluxDB [line protocol format](https://docs.influxdata.com/influxdb/v1.7/write_protocols/line_protocol_tutorial/). For example:
+```
+thermostat set_temp=19.4 1564466359638010112
+thermostat controller=0 1564466359638010112
+thermostat temp_c=22.4 1564466359638010112
+thermostat pressure_mb=1010.1 1564466359638010112
+thermostat relative_humidity=61.4 1564466359638010112
+``` 
 
 ## Collaborators wanted!
 ### Mechanics and CAD
