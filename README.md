@@ -1,5 +1,5 @@
 ## Quickstart
-On a fresh installation of Raspbian Stretch Lite in a new directory, run the following commands to install everything you need to run the Nido thermostat:
+On a fresh installation of Raspbian Stretch Lite, run the following commands to install everything you need to run the Nido thermostat:
 
 ```bash
 cd ~
@@ -8,7 +8,7 @@ cd nido
 curl -fsSL get-nido.moveolabs.com | source /dev/stdin
 ```
 
-Once Nido is up and running, you can add it as a new accessory in the Apple Home app using the default code `94812494`, or by scanning the QR code in the Homebridge startup logs. Make sure your Apple device is on the same network as the Raspberry Pi.
+Once Nido is up and running, you can add it as a new accessory in the Apple Home app using the default code `94812494` or by scanning the QR code in the Homebridge startup logs. Make sure your Apple device is on the same network as the Raspberry Pi.
 
 Of course, you'll need some hardware to make the software useful, so keep reading...
 
