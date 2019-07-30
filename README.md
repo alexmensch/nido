@@ -67,7 +67,7 @@ Parts list:
 
 Circuit diagram:
 
-![Circuit diagram][https://raw.githubusercontent.com/alexmensch/nido/master/doc/circuit.png]
+![Circuit diagram](https://raw.githubusercontent.com/alexmensch/nido/master/doc/circuit.png)
 
 ## Hardware design
 ### A $5 computer and a some electronics
