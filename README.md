@@ -49,7 +49,11 @@ So, what are you waiting for? Bring that gas heater and the comfort of your livi
 ### Custom electronics
 I've implemented a very simple circuit to control the heater. This circuit effectively replaces the magnet and reedswitch and allows a GPIO control pin on the Raspberry Pi to control the valve that turns on the heating.
 
-How it works:
+__Circuit diagram:__
+
+![Circuit diagram](https://raw.githubusercontent.com/alexmensch/nido/master/doc/circuit.png)
+
+__How it works:__
 1. The control software drives the GPIO control pin high.
 2. This high voltage state turns on an NPN transistor, which drives enough current to close the contacts on a small relay.
 3. The relay contacts are connected to the heater control wires (formerly connected to the mechanical thermostat), which replaces the reed switch in the mechanical thermostat.
@@ -57,17 +61,13 @@ How it works:
 
 **Note:** It's important to use a "normally open" relay so that the whole system fails safe. In other words, the heat should be off by default if your Raspberry Pi loses power, not the other way around!
 
-Parts list:
+__Parts list:__
 
 - Relay: 1 x SPST (NO), Hamlin Electronics P/N HE3621A0510 [Jameco](https://www.jameco.com/z/HE3621A0510-Hamlin-Electronics-Electromechanical-SIL-Relay-SPST-NO-500mA-5-Volt-500-Ohm-Through-Hole_1860088.html)
 - Transistor: 1 x BC337 TO-92 NPN [Jameco](https://www.jameco.com/z/BC337-Major-Brands-Transistor-BC337-TO-92-NPN-800ma-45-Volt_254810.html)
 - Resistor: 1 x 1kΩ
 
 **Total cost:** Less than $2
-
-Circuit diagram:
-
-![Circuit diagram](https://raw.githubusercontent.com/alexmensch/nido/master/doc/circuit.png)
 
 ## Hardware design
 ### A $5 computer and a some electronics
