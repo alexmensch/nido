@@ -73,7 +73,13 @@ __Parts list:__
 
 ## Hardware design
 ### A $5 computer and some electronics
+At its core, a thermostat is a very simple device. Much simpler hardware solutions than Nido are possible, but around the time that I started working on this project in January 2016, the [Raspberry Pi Zero](https://www.raspberrypi.org/products/raspberry-pi-zero/) had just been released, and I was really intrigued by the idea of building around a $5 Linux computing device. Running a full operating system and being able to write software in widely-used languages like Python and JavaScript meant that it would be much easier to integrate Nido with other systems and make extensions to the product in the future. Despite the importance of the hardware interface with the heater, the heart of this project relies on software, and the Raspberry Pi has made it easy to expand the product's functionality over time.
 
+Aside from the choice of the Raspberry Pi as the underlying platform, there were just a few main handware decisions:
+
+- The **BME280 temperature / humidity / pressure sensor** chip. I'd been eyeing this chip for a different project that also required a pressure sensor, and this one is packaged in a compact and easy-to-use format by the folks at [Adafruit](https://www.adafruit.com/about). An alternative Bosch chip, the BMP280, which lacks the pressure sensor, is about half the cost and would be my choice for the next hardware revision of the product.
+- The **I²C data bus** protocol. This was primarily a decision around limiting the number of wires compared to SPI. I²C only requires two wires for data transmission, and its low data rate was not an issue for this project.
+- The small **control relay**. This was mostly a decision of expediency of choice as I was up against a deadline at the time, but I'd love to find something smaller for the next hardware revision. The requirements on the contact side are minimal: low voltage and virtually no current. There's probably a solid state relay that's a great choice here, but it's hard to beat the price on the existing hardware!
 
 ### Wait...no physical interface?
 
@@ -121,7 +127,7 @@ thermostat relative_humidity=61.4 1564466359638010112
 Point an MQTT subscriber to port 1883 on the Raspberry Pi host to receive these messages. You can also configure Nido to broadcast to any MQTT broker (hint: pick your favorite cloud service).
 
 ## Collaborators wanted!
-### Mechanics and CAD
+### Mechanical and CAD
 
 
 ### PCB and electronics
