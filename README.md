@@ -105,7 +105,7 @@ __Code repositories:__
 
 
 ### Data logging
-The BME280 chip is an amazing piece of technology, and it's capable of very high precision. It's an under-appreciated piece of technology in this project, but you can make better use of it by capturing the data it generates. By default, when you run Nido, a local MQTT broker (Mosquitto) is also started. You can subscribe to this broker and receive the data that's logged from Nido every 60 seconds.
+The BME280 chip is an amazing piece of technology, and it's capable of very high precision. It's an under-appreciated piece of technology in this project, but you can make better use of it by capturing the data it generates. By default, when you run Nido, a local MQTT broker ([Mosquitto](https://mosquitto.org)) is also started. You can subscribe to this broker and receive the data that's logged from Nido every 60 seconds.
 
 MQTT Topic            | Description
 :---------------------|:-----------
