@@ -8,6 +8,13 @@ cd nido
 curl -fsSL get-nido.moveolabs.com | source /dev/stdin
 ```
 
+For the extra cautious, you can verify the checksum of the install script below, and the download domain ownership [here](https://keybase.io/alexmensch).
+
+```bash
+shasum -a 256 get-nido.sh 
+ab43579d6b546e789292b54f802d118af3e2a55e00ba86308e7729a6387bf773  get-nido.sh
+```
+
 Once Nido is up and running, you can add it as a new accessory in the Apple Home app using the default code `94812494` or by scanning the QR code in the Homebridge startup logs. Make sure your Apple device is on the same network as the Raspberry Pi.
 
 Of course, you'll need some hardware to make the software useful, so keep reading...
