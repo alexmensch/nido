@@ -1,5 +1,5 @@
 ## Quickstart
-On a fresh installation of Raspbian Stretch Lite, run the following commands to install everything you need to run the Nido thermostat:
+On a fresh installation of Raspbian Stretch Lite on a Raspberry Pi, run the following commands to install everything you need to run the Nido thermostat:
 
 ```bash
 cd ~
@@ -196,11 +196,16 @@ thermostat relative_humidity=61.4 1564466359638010112
 Point an MQTT subscriber to port 1883 on the Raspberry Pi host to receive these messages. You can also configure Nido to broadcast to any MQTT broker (hint: pick your favorite cloud service).
 
 ## Collaborators wanted!
-### Mechanical and CAD
+It's been really fun getting the project this far, but there's only so much time in the day, and my skills are rusty in some areas and only extend so far in others! I'd love to get some help in the following areas. You can contact me at amars\[at\]alumni\[dot\]stanford\[dot\]edu.
 
+### Mechanical and CAD
+- I'd love to create a CAD design for a 3D-printable case. The current prototype uses a standard Raspberry Pi Zero case and some pretty rudimentary mounting. I think it would be pretty straightforward to create a case in nearly the exact same form factor as the original mechanical thermostat. This would make it a truly great direct in-place replacement for the old thermostat!
 
 ### PCB and electronics
-
+- There's a great opportunity to create an all-in-one PCB that incorporates not only the relay driver circuit, but also the BME280/BMP280 sensor. With some surface mount components, the sensor and driver circuitry can be given a much smaller footprint, too.
+- Developing the PCB in a form factor where it can be plugged directly into the GPIO header without any wires required would be even better. There's a good opportunity to interface with the case design, too.
 
 ### Software
-
+- My day job is not as a professional software developer, so I'm sure there are many, many things that could be improved. I have lots of ideas for extensions and additions to the project to make it even better.
+- Data visualization is an interesting opportunity that I haven't yet explored in detail.
+- Empirical measurement and feedback of overall energy efficiency would be a really interesting extension to this project.
