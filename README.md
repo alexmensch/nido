@@ -8,7 +8,7 @@ cd nido
 curl -fsSL get-nido.moveolabs.com | source /dev/stdin
 ```
 
-For the extra cautious, you can verify the checksum of the install script below, and the download domain ownership [here](https://keybase.io/alexmensch).
+For the extra cautious, you can verify the checksum of the install script, below, and the download domain [ownership](https://keybase.io/alexmensch).
 
 ```bash
 shasum -a 256 get-nido.sh 
@@ -82,17 +82,37 @@ __Parts list:__
 ### A $5 computer and some electronics
 At its core, a thermostat is a very simple device. Much simpler hardware solutions than Nido are possible, but around the time that I started working on this project in January 2016, the [Raspberry Pi Zero](https://www.raspberrypi.org/products/raspberry-pi-zero/) had just been released, and I was really intrigued by the idea of building around a $5 Linux computing device. Running a full operating system and being able to write software in widely-used languages like Python and JavaScript meant that it would be much easier to integrate Nido with other systems and make extensions to the product in the future. Despite the importance of the hardware interface with the heater, the heart of this project relies on software, and the Raspberry Pi has made it easy to expand the product's functionality over time.
 
-Aside from the choice of the Raspberry Pi as the underlying platform, there were just a few main handware decisions:
+Aside from the choice of the Raspberry Pi as the underlying platform, there were just a few main hardware decisions:
 
 - The **BME280 temperature / humidity / pressure sensor** chip. I'd been eyeing this chip for a different project that also required a pressure sensor, and this one is packaged in a compact and easy-to-use format by the folks at [Adafruit](https://www.adafruit.com/about). An alternative Bosch chip, the BMP280, which lacks the pressure sensor, is about half the cost and would be my choice for the next hardware revision of the product.
 - The **I²C data bus** protocol. This was primarily a decision around limiting the number of wires compared to SPI. I²C only requires two wires for data transmission, and its low data rate was not an issue for this project.
 - The small **control relay**. This was mostly a decision of expediency of choice as I was up against a deadline at the time, but I'd love to find something smaller for the next hardware revision. The requirements on the contact side are minimal: low voltage and virtually no current. There's probably a solid state relay that's a great choice here, but it's hard to beat the price on the existing hardware!
 
 ### Wait...no physical interface?
+Counter to every other thermostat you've interacted with, Nido has no screen and no buttons. Initially, this made the hardware design faster to implement, but I ultimately came to the conclusion that a physical interface is unnecessary. The most pleasing human interaction with technology is when it works invisibly for us in the background, only requiring our attention during exceptional moments when our input is really needed.
 
+Nido is typically set up to have the following behavior:
+
+- It turns on automatically when the first person arrives home.
+- It turns off automatically when the last person leaves home.
+- You define a comfortable indoor temperature that you choose for your home during the day.
+- You define a comfortable overnight temperature.
+
+For the times when you feel like you do need to intervene in its normal operation:
+
+- You can see its status and adjust its settings from your iOS device from anywhere in the world.
+- It responds to voice commands via Siri, too.
+
+For the really advanced among us:
+
+- It has an open API that lets you fine-tune its control beyond the automation built into HomeKit on iOS.
+
+With all of those possibilities, why have yet another device in your home to distract and fight for your attention? Don't you carry about an advanced display and controller in your pocket already, anyway?
 
 ## Software design
 ### Python, NodeJS and MQTT
+
+
 
 __Code repositories:__
 
