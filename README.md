@@ -19,7 +19,7 @@ Once Nido is up and running, you can add it as a new accessory in the Apple Home
 
 Of course, you'll need some hardware to make the software useful, so keep reading...
 
-## Say, "NEE-doh", an IoT thermostat for ancient technology
+## Say "NEE-doh", an IoT thermostat for ancient technology
 ### A bridge between the mechanical era and the Internet
 
 I live in an apartment with a [gas wall furnace](https://www.williamscomfortprod.com/product/monterey-plus-home-furnaces/) that's operated by [184-year-old technology](https://www.jondetech.se/technology/thermopile-history/). One of the highlighted features of these furnaces is that they **don't require wall power**, which is great from the standpoint of keeping you warm during a power outage, but if you want to control your furnace with a smart thermostat, you're out of luck. (Though that hasn't stopped [some people](https://medium.com/@chrisvale/controlling-an-ancient-millivolt-heater-with-a-nest-b9493bbc59da) from [trying](https://scottshapiro.com/hacking-nest-uk-san-francisco-heater/).) Commercial smart thermostats generally require power drawn directly from the heating/cooling system to power themselves and also (usually) lack the necessary circuitry to control a heater of this type.
@@ -78,7 +78,7 @@ __Parts list:__
 
 **Total cost:** Less than $2
 
-## Hardware interface with the Raspberry Pi
+### Hardware interface with the Raspberry Pi
 
 __Relay circuit:__
 
@@ -94,12 +94,12 @@ __BME280 Adafruit module:__
 
 Only two data wires needs to be connected to the GPIO header for the I²C data bus other than power:
 
-BME280 Pin | GPIO Pin |Notes
-:----------|:---------|:--------------------
-SCK        |SCL       |Timing (clock) signal
-SDI        |SDA       |Data signal
-VIN        |5V        |Alternatively, the corresponding 3Vo/3V3 pins can also be used. I shared the same 5V source for both circuits to avoid an extra wire.
-GND        |GND       |There are eight GND pins to choose from on the GPIO header, and this can be shared with the relay circuit to minimize wires.
+GPIO Pin |BME280 Pin |Notes
+:--------|:----------|:--------------------
+SCL      |SCK        |Timing (clock) signal
+SDA      |SDI        |Data signal
+5V       |VIN        |Alternatively, the corresponding 3Vo/3V3 pins can also be used. I shared the same 5V source for both circuits to avoid an extra wire.
+GND      |GND        |There are eight GND pins to choose from on the GPIO header, and this can be shared with the relay circuit to minimize wires.
 
 ## Hardware design
 ### A $5 computer and some electronics
@@ -126,7 +126,7 @@ For the times when you feel like you do need to intervene in its normal operatio
 - You can see its status and adjust its settings from your iOS device from anywhere in the world.
 - It responds to voice commands via Siri, too.
 
-For the really advanced among us:
+For the advanced home automation enthusiast:
 
 - It has an open API that lets you fine-tune its control beyond the automation built into HomeKit on iOS.
 
@@ -140,36 +140,38 @@ This is a high level overview as each of the repositories below go into more det
 1. **"nido-supervisor"**. This is the heart of Nido. This container runs all of the backend logic necessary for the thermostat to interact with the world, including the hardware interface, the thermostat control logic, a simple database, datalogging capabilities, and an RPC service. These capabilties are packaged together into the [nido](https://pypi.org/project/nido/) Python package.
 2. **"nido-api"**. This container uses a Gunicorn WSGI server to host a REST API for Nido. This frontend interfaces with the backend via RPC. This service is also part of the [nido](https://pypi.org/project/nido/) Python package.
 3. **"homebridge"**. I'm running Nick Farina's [Homebridge](https://github.com/nfarina/homebridge) project to provide a bridge interface to the HomeKit Accessory Protocol and advertise Nido on the user's local network. I wrote a NodeJS plugin, [homebridge-nido](https://www.npmjs.com/package/homebridge-nido), that connects Homebridge to the Nido native API.
-4. **"mosquitto"**. This is an off-the-shelf version of the [Mosquitto](https://mosquitto.org) MQTT broker, By default, the Nido backend is configured to publish state and environmental sensor information to this broker every 60 seconds. Any other client on the network can subscribe to these updates from the broker (see below).
+4. **"mosquitto"**. This is an off-the-shelf version of the [Mosquitto](https://mosquitto.org) MQTT broker, By default, the Nido backend is configured to publish state and environmental sensor information to this broker every 60 seconds. Any other client on the network can subscribe to these updates from the broker. (More on this, [below](#data-logging)).
 
 __Code repositories:__
 
 [alexmensch/nido-python](https://github.com/alexmensch/nido-python)
 
-- The build output of this repository is the [nido](https://pypi.org/project/nido/) Python package. It has a built in simulator for the expected input and output hardware so that development can take place on a local device.
+- The build output of this repository is the [nido](https://pypi.org/project/nido/) Python package. It has a built in simulator for the expected input and output hardware so that development can take place on a non-Raspberry Pi machine.
 
 [alexmensch/nido-docker](https://github.com/alexmensch/nido-docker)
 
-- This respository is used for automated builds to publish the [alexmensch/nido](https://hub.docker.com/r/alexmensch/nido) Docker image. This ARM32v6-compatible image is based on the minimalist [Alpine Linux](https://alpinelinux.org) image. The timezone on the image is set to UTC, and the nido Python package is installed, including compliation of the GPIO Python interface library. No other steps are performed, making this a lightweight image.
+- This respository is used for automated builds to publish the [alexmensch/nido](https://hub.docker.com/r/alexmensch/nido) Docker image. This ARM32v6-compatible image is based on the minimalist [Alpine Linux](https://alpinelinux.org) image. The timezone on the image is set to UTC, and the [nido](https://pypi.org/project/nido/) Python package is installed, including compliation of the GPIO Python interface library. No other steps are performed, making this a lightweight image.
 
 [alexmensch/nido-homebridge](https://github.com/alexmensch/nido-homebridge)
 
-- This NodeJS plugin is published as [homebridge-nido](https://www.npmjs.com/package/homebridge-nido) on npm. It is a very simple translation interface between the Homebridge (itself an interface to the HomeKit Accessory Protocol) and the native Nido API.
+- This NodeJS plugin is published as [homebridge-nido](https://www.npmjs.com/package/homebridge-nido) on npm. It is a very simple translation interface between Homebridge (itself an interface to the HomeKit Accessory Protocol) and the native Nido API.
 
 [alexmensch/nido](https://github.com/alexmensch/nido)
 
 - This repository. Aside from this documentation, it holds everything needed to run the finished product: default service configuration files, the Docker Compose service definitions and the installation script.
 
 ### Thermostat control loop
-The control loop for the thermostat is very simple. In the absence of any changes being made to the thermostat settings, every 5 minutes we check the current mode setting, the temperature set point, what the current state of the heater is, and the current temperature. If changes are made to the thermostat settings, then this process is triggered immediately. The following decisions are then made:
+The control loop for the thermostat is very simple. In the absence of any changes being made to the thermostat settings, every 5 minutes the supervisor checks the current mode setting, the temperature set point, what the current state of the heater is, and the current temperature. If changes are made to the thermostat settings, then this process is triggered immediately. The following decisions are then made:
 
 1. If any exceptions are raised in the software, shut off the heater by default.
 2. If the mode is set to "Off", shut off the heater.
 3. If the mode is set to "Heat", and the heater is currently heating, only shut off the heater if the current temperature is above the set temperature.
 4. If the mode is set to "Heat", and the heater is currently off, only turn on the heater if the current temperature is less than 0.6C cooler than the set temperature.
-4. If all else, shut off the heater.
+4. Else, shut off the heater.
 
-**Why 0.6C?** This corresponds approximately to a difference of 1F, but the reason to include this margin is to introduce [hysteresis](https://en.wikipedia.org/wiki/Hysteresis) into the control loop. This means that we want the system to have some lag in its response, which is also the reason that we only check to see if we need to turn the heater on or off every 5 minutes. Without introducing this lag, the precision of the sensor would generate the undesireable effect of the heater turning off and on in quick succession as the room temperature would move just above and just below the desired temperature set point. 
+**Why 0.6C?**
+
+This corresponds approximately to a difference of 1F, but the reason to include this margin is to introduce [hysteresis](https://en.wikipedia.org/wiki/Hysteresis) into the control loop. This means that we want the system to have some lag in its response, which is also the reason that we only check to see if we need to turn the heater on or off every 5 minutes. Without introducing this lag, the precision of the sensor would generate the undesireable effect of the heater turning off and on in quick succession as the room temperature moved just a fraction above and below the set temperature.
 
 ### Data logging
 The BME280 chip is an amazing piece of technology, and it's capable of very high precision. It's an under-appreciated piece of technology in this project, but you can make better use of it by capturing the data it generates. By default, when you run Nido, a local MQTT broker ([Mosquitto](https://mosquitto.org)) is also started. You can subscribe to this broker and receive the data that's logged from Nido every 60 seconds.
