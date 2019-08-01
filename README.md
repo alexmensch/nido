@@ -1,3 +1,4 @@
+# Say, "Nee-doh"
 ## Quickstart
 On a fresh installation of Raspbian Stretch Lite, run the following commands to install everything you need to run the Nido thermostat:
 
@@ -107,7 +108,7 @@ For the really advanced among us:
 
 - It has an open API that lets you fine-tune its control beyond the automation built into HomeKit on iOS.
 
-With all of those possibilities, why have yet another device in your home to distract and fight for your attention? Don't you carry about an advanced display and controller in your pocket already, anyway?
+With all of those possibilities, why have yet another device in your home to distract and fight for your attention? Don't you carry around an advanced display and controller in your pocket already, anyway?
 
 ## Software design
 ### Python, NodeJS and MQTT
