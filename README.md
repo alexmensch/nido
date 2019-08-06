@@ -201,10 +201,6 @@ It's been really fun getting the project this far, but there's only so much time
 ### Mechanical and CAD
 - I'd love to create a CAD design for a 3D-printable case. The current prototype uses a standard Raspberry Pi Zero case and some pretty rudimentary mounting. I think it would be pretty straightforward to create a case in nearly the exact same form factor as the original mechanical thermostat. This would make it a truly great direct in-place replacement for the old thermostat!
 
-### PCB and electronics
-- There's a great opportunity to create an all-in-one PCB that incorporates not only the relay driver circuit, but also the BME280/BMP280 sensor. With some surface mount components, the sensor and driver circuitry can be given a much smaller footprint, too.
-- Developing the PCB in a form factor where it can be plugged directly into the GPIO header without any wires required would be even better. There's a good opportunity to interface with the case design, too.
-
 ### Software
 - My day job is not as a professional software developer, so I'm sure there are at least a few things that could be improved. I have lots of ideas for extensions and additions to the project to make it even better.
 - Data visualization is an interesting opportunity that I haven't yet explored in detail.
