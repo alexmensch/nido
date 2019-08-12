@@ -25,7 +25,10 @@ u=`whoami`
 wd=`pwd`
 
 # Enable I2C kernel module
-sudo modprobe i2c-bcm2708
+sudo modprobe i2c-dev
+if ! `grep -q "^i2c[-_]dev" /etc/modules`; then
+    printf "i2c-dev\n" | sudo tee -a /etc/modules
+fi
 
 # Set locale to US UTF-8
 sudo sed -i "s/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g" /etc/locale.gen \
@@ -38,8 +41,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh \
     && sudo ./get-docker.sh
 
 # Add pi user to docker group
-sudo usermod -aG docker ${u} \
-    && newgrp -
+sudo usermod -aG docker ${u}
 
 # Install Docker Compose
 sudo apt-get -y install python3-pip \
@@ -81,5 +83,13 @@ echo "Nido API secret: ${b}"
 sudo cp docker-compose-nido.service /etc/systemd/system
 sudo systemctl enable docker-compose-nido
 
-# Start Nido
-docker-compose up -d
+# Restart
+echo
+echo "**********************************************"
+echo "Restarting in 15 seconds..."
+echo "Nido will run automatically on system startup."
+echo "Press CTRL-C to cancel."
+echo "**********************************************"
+echo
+sleep 15s
+sudo /sbin/shutdown -r now
