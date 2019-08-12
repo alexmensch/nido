@@ -24,22 +24,29 @@ dc="docker-compose.yml"
 u=`whoami`
 wd=`pwd`
 
+# Enable I2C kernel module
+sudo modprobe i2c-bcm2708
+
+# Set locale to US UTF-8
+sudo sed -i "s/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g" /etc/locale.gen \
+    && sudo locale-gen en_US.UTF-8 \
+    && sudo update-locale en_US.UTF-8
+
 # Install Docker
 curl -fsSL https://get.docker.com -o get-docker.sh \
     && chmod u+x get-docker.sh \
-    && sudo VERSION=18.06 ./get-docker.sh
+    && sudo ./get-docker.sh
 
 # Add pi user to docker group
 sudo usermod -aG docker ${u} \
     && newgrp -
 
 # Install Docker Compose
-sudo apt-get -y install python-setuptools \
-    && sudo easy_install pip \
-    && sudo pip install docker-compose~=1.23.0
+sudo apt-get -y install python3-pip \
+    && sudo pip3 install docker-compose~=1.23.0
 
 # Create local volume mountpoints
-mkdir homebridge log instance
+mkdir homebridge logs instance
 # Get latest version of configuration files
 curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/Dockerfile > Dockerfile
 curl -sL https://raw.githubusercontent.com/alexmensch/nido/master/mosquitto.conf > mosquitto.conf
