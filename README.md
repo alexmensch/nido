@@ -12,7 +12,7 @@ For the extra cautious, you can verify the checksum of the install script, below
 
 ```bash
 shasum -a 256 get-nido.sh 
-ab43579d6b546e789292b54f802d118af3e2a55e00ba86308e7729a6387bf773  get-nido.sh
+ff1e30736203abfb22656b5d23a1b7984b0915e75b810dd09c11f5dfbc642dfb  get-nido.sh
 ```
 
 Once Nido is up and running, you can add it as a new accessory in the Apple Home app using the default code `94812494` or by scanning the QR code in the Homebridge startup logs. Make sure your Apple device is on the same network as the Raspberry Pi.
