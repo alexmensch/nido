@@ -76,7 +76,7 @@ __How it works:__
 
 __Parts list:__
 
-- Relay: 1 x SPST (NO), Hamlin Electronics P/N HE3621A0510 ([Jameco](https://www.jameco.com/z/HE3621A0510-Hamlin-Electronics-Electromechanical-SIL-Relay-SPST-NO-500mA-5-Volt-500-Ohm-Through-Hole_1860088.html))
+- Relay: 1 x SPST (NO), Hamlin Electronics P/N HE3621-A-05-10 ([Jameco](https://www.jameco.com/z/HE3621A0510-Hamlin-Electronics-Electromechanical-SIL-Relay-SPST-NO-500mA-5-Volt-500-Ohm-Through-Hole_1860088.html))
 - Transistor: 1 x BC337 TO-92 NPN ([Jameco](https://www.jameco.com/z/BC337-Major-Brands-Transistor-BC337-TO-92-NPN-800ma-45-Volt_254810.html))
 - Resistor: 1 x 1kΩ
 
